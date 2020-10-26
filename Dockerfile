@@ -73,8 +73,8 @@ RUN echo "auth requisite pam_deny.so" >> /etc/pam.d/su && \
     mkdir -p $CONDA_DIR && \
     chown $NB_USER:$NB_GID $CONDA_DIR && \
     chmod g+w /etc/passwd && \
-    fix-permissions $HOME
-#    fix-permissions $CONDA_DIR
+    fix-permissions $HOME && \
+    fix-permissions $CONDA_DIR
 
 USER $NB_UID
 WORKDIR $HOME
@@ -113,7 +113,7 @@ RUN mkdir /home/$NB_USER/work && \
 RUN conda install --quiet --yes 'tini=0.18.0' && \
     conda list tini | grep tini | tr -s ' ' | cut -d ' ' -f 1,2 >> $CONDA_DIR/conda-meta/pinned && \
     conda clean --all -f -y && \
-#    fix-permissions $CONDA_DIR && \
+    fix-permissions $CONDA_DIR && \
     fix-permissions /home/$NB_USER
 
 # Install Jupyter Notebook, Lab, and Hub
@@ -131,7 +131,7 @@ RUN conda install --quiet --yes \
     jupyter notebook --generate-config && \
     rm -rf $CONDA_DIR/share/jupyter/lab/staging && \
     rm -rf /home/$NB_USER/.cache/yarn && \
-#    fix-permissions $CONDA_DIR && \
+    fix-permissions $CONDA_DIR && \
     fix-permissions /home/$NB_USER
 
 EXPOSE 8888

@@ -29,7 +29,6 @@ USER root
 # features (e.g., download as all possible file formats)
 ENV DEBIAN_FRONTEND noninteractive
 RUN apt-get update \
- && add-apt-repository ppa:openjdk-r/ppa \
  && apt-get install -yq --no-install-recommends \
     wget \
     bzip2 \
